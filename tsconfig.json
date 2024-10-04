@@ -31,6 +31,6 @@
     "allowJs": false,                           // Do not allow JavaScript files
     "checkJs": false                            // Do not check JavaScript files
   },
-  "include": ["src/**/*.ts", "src/**/*.tsx"],   // Include only TypeScript files
+  "include": ["src/**/*"],   // Include only TypeScript files
   "exclude": ["node_modules"]                   // Exclude the node_modules directory
 }

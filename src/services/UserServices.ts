@@ -35,14 +35,14 @@ export interface User {
 // }
 
 // Fonction pour connecter un utilisateur
-export const loginUser = async (email: string, password: string): Promise<{ token: string; }> => {
+export const loginUser = async (username: string, password: string): Promise<{ token: string; }> => {
     try {
         const response = await fetch(`${API_URL}/login`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ email, password }),
+            body: JSON.stringify({ username, password }),
         });
 
         // Vérifier si la réponse est correcte

@@ -9,11 +9,11 @@ import coverImage from '@/assets/cover.jpg';
 
 
 interface LoginPageProps {
-  onLogin: (email: string, password: string) => Promise<void>;
+  onLogin: (username: string, password: string) => Promise<void>;
 }
 
 const LoginPage: React.FC<LoginPageProps> = ({ onLogin }) => {
-  const [email, setEmail] = useState('');
+  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const navigate = useNavigate(); // Utiliser useNavigate
@@ -21,7 +21,7 @@ const LoginPage: React.FC<LoginPageProps> = ({ onLogin }) => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      await onLogin(email, password);
+      await onLogin(username, password);
       navigate('/'); // Rediriger vers la page d'accueil après connexion
     } catch (error) {
       setError('Erreur lors de la connexion');
@@ -41,8 +41,8 @@ const LoginPage: React.FC<LoginPageProps> = ({ onLogin }) => {
           </div>
           <div className="grid gap-4">
             <div className="grid gap-2">
-              <Label htmlFor="email">Email</Label>
-              <Input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email" />
+              <Label htmlFor="username">username</Label>
+              <Input type="text" value={username} onChange={(e) => setUsername(e.target.value)} placeholder="Username" />
 
             </div>
             <div className="grid gap-2">
