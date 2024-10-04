@@ -5,6 +5,9 @@ export interface Article {
   _id: string;
   title: string;
   content: string;
+  coverImage?: string; // Si tu as une image de couverture
+  summary?: string; // Résumé de l'article
+  createdAt: string; // Date de création
 }
 
 // Function to get all articles

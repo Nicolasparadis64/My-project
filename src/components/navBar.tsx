@@ -9,7 +9,7 @@ const NavBar: React.FC<{ onLogout: () => void }> = ({ onLogout }) => {
     const username = 'Username'; // Remplacez ceci par la logique pour obtenir le nom d'utilisateur
 
     return (
-        <div className=' relative flex flex-row justify-end w-full h-10 z-50'> 
+        <div className=' flex flex-row justify-end w-full h-10 z-50'> 
             <DropdownMenu>
                 <DropdownMenuTrigger>
                     <div className='flex justify-center items-center w-20 h-20'>

@@ -1,26 +1,23 @@
-import * as React from 'react';
-import { useState } from 'react';
+import ArticleCard from '@/components/card/ArticleCard';
 import { Article, deleteArticle } from '@/services/articleServices';
-import { Button } from '@/components/ui';
-import { DataTable } from './table/data-table';
-import { ColumnDef } from '@tanstack/react-table';
 import { ModifySheet } from '@/modals/modifySheet';
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog"
+} from "@/components/ui/dialog";
+import { useState } from "react";
 
 interface ArticleListProps {
   articles: Article[];
   onArticleDeleted: (id: string) => void;
-  onArticleModified: (id: string) => void;
+  onArticleModified: (modifiedArticle: Article) => void;
+  onModifyClick: (article: Article) => void;
 }
 
-const ArticleList: React.FC<ArticleListProps> = ({ articles, onArticleDeleted, onArticleModified }) => {
+const ArticleList: React.FC<ArticleListProps> = ({ articles, onArticleDeleted, onModifyClick }) => {
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [selectedArticle, setSelectedArticle] = useState<Article | null>(null);
+
   const handleDelete = async (id: string) => {
     try {
       await deleteArticle(id);
@@ -30,49 +27,26 @@ const ArticleList: React.FC<ArticleListProps> = ({ articles, onArticleDeleted, o
     }
   };
 
-  const handleModify = async (id: string) => {
-    onArticleModified(id);
-  };
-
-  const handleModifyComplete = (id: string) => {
+  const handleModifyComplete = (modifiedArticle: Article) => {
     setIsDialogOpen(false);
-    onArticleModified(id);
+    onModifyClick(modifiedArticle);
   };
-
-  const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const [selectedArticle, setSelectedArticle] = useState<Article | null>(null);
-
-  const columns: ColumnDef<Article>[] = [
-    {
-      accessorKey: 'title',
-      header: 'Titre',
-    },
-    {
-      accessorKey: 'content',
-      header: 'Contenu',
-      cell: ({ row }) => <div>{row.original.content.substring(0, 50)}...</div>,
-    },
-    {
-      id: 'actions',
-      cell: ({ row }) => (
-        <div>
-          <Button onClick={() => handleDelete(row.original._id)}>Supprimer</Button>
-          <Button onClick={() => {
-            setSelectedArticle(row.original);
-            setIsDialogOpen(true);
-          }}>Modifier</Button>
-        </div>
-      ),
-    },
-  ];
 
   return (
-    <div>
-      <DataTable columns={columns} data={articles}/>
+    <div className="flex flex-wrap justify-center gap-3">
+      {articles.map((article) => (
+        <ArticleCard
+          key={article._id}
+          article={article}
+          onModifyClick={() => onModifyClick(article)}  // Gestion de la modification d'article
+          onDelete={() => handleDelete(article._id)}   // Gestion de la suppression d'article
+        />
+      ))}
+
       {selectedArticle && (
         <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
           <DialogContent>
-            <ModifySheet 
+            <ModifySheet
               article={selectedArticle}
               isOpen={isDialogOpen}
               onClose={() => setIsDialogOpen(false)}
