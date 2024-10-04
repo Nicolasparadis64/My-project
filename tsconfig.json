@@ -1,0 +1,36 @@
+{
+  "files": [],
+  "references": [
+    {
+      "path": "./tsconfig.app.json"
+    },
+    {
+      "path": "./tsconfig.node.json"
+    }
+  ],
+  "compilerOptions": {
+    "target": "ES2020",                         // Set the JavaScript version to compile to
+    "useDefineForClassFields": true,            // Use the new class fields standard
+    "lib": ["ES2020", "DOM", "DOM.Iterable"],  // Specify the libraries to include
+    "module": "ESNext",                         // Set the module system
+    "skipLibCheck": true,                       // Skip type checking of declaration files
+    "moduleResolution": "node",                  // Resolve modules the same way Node.js does
+    "allowSyntheticDefaultImports": true,       // Allow default imports from modules with no default export
+    "resolveJsonModule": true,                  // Enable importing of JSON modules
+    "isolatedModules": true,                     // Ensure each file can be transpiled independently
+    "noEmit": false,                             // Do not emit output files
+    "jsx": "react-jsx",                             // Use the new JSX transform
+    "strict": true,                             // Enable all strict type-checking options
+    "noUnusedLocals": true,                     // Report errors on unused local variables
+    "noUnusedParameters": true,                  // Report errors on unused parameters
+    "noFallthroughCasesInSwitch": true,         // Report errors for fallthrough cases in switch statements
+    "baseUrl": ".",                             // Base directory to resolve non-relative module names
+    "paths": {
+      "@/*": ["src/*"]                         // Setup path aliases
+    },
+    "allowJs": false,                           // Do not allow JavaScript files
+    "checkJs": false                            // Do not check JavaScript files
+  },
+  "include": ["src/**/*.ts", "src/**/*.tsx"],   // Include only TypeScript files
+  "exclude": ["node_modules"]                   // Exclude the node_modules directory
+}
